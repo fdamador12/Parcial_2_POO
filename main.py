@@ -101,7 +101,7 @@ class Punto_Geografico:
 #========================================================================================
 #Clase Ruta
 class Ruta:
-    def __init__(self, recorrido):
+    def __init__(self):
         self.recorrido = []
     def add_punto_geografico(self, punto):
         self.recorrido.append(punto)
@@ -135,8 +135,86 @@ class Cuenta:
     def calcular_total(self):
         return self.cantidad_vidrio + self.cantidad_plastico + self.cantidad_papel + self.cantidad_metal + self.cantidad_organico + self.cantidad_otro
 
+#========================================================================================
+#Codigo Principal
+
+#========================================================================================
+#Importar libreria random
+import random
+
+#############
+#Relleno una carga aleatoriamente
 
 
+#================================================================================================
+#Creacion de los Puntos Geograficos
+Punto1 = Punto_Geografico("A", 10, 20)
+Punto2 = Punto_Geografico("B", 20, 30)
+Punto3 = Punto_Geografico("C", 30, 40)
+Punto4 = Punto_Geografico("D", 40, 50)
+Punto5 = Punto_Geografico("E", 50, 60)
+Punto6 = Punto_Geografico("F", 60, 70)
+Punto7 = Punto_Geografico("G", 70, 80)
+Punto8 = Punto_Geografico("H", 80, 90)
+Punto9 = Punto_Geografico("I", 90, 100)
+Punto10 = Punto_Geografico("J", 100, 110)
+
+#Despues lo convierto en una funcion para que se vea mejor :3
+# Lista de los puntos
+puntos = [Punto1, Punto2, Punto3, Punto4, Punto5, Punto6, Punto7, Punto8, Punto9, Punto10]
+# Mezclar los puntos aleatoriamente
+random.shuffle(puntos)
+# Crear una instancia de la clase Ruta
+Ruta1 = Ruta()
+# Llenar la ruta con 5 puntos aleatorios
+puntos_aleatorios = random.sample(puntos, 5)
+for punto in puntos_aleatorios:
+    Ruta1.add_punto_geografico(punto)
+# Describir la ruta
+Ruta1.describir_ruta()
+
+
+#========================================================================================
+#Creacion de la empresa principal
+TrashCity = TrashCity("TrashCity")
+
+#Creacion de los camiones de la empresa
+Camion1 = Camion(1, "Diurno")
+Camion2 = Camion(2, "Nocturno")
+Camion3 = Camion(3, "Diurno")
+
+#Creacion de los conductores de la empresa
+Conductor1 = Conductor("Juan", 30, "Hombre", 1)
+Conductor2 = Conductor("Pedro", 40, "Hombre", 2)
+Conductor3 = Conductor("Maria", 35, "Mujer", 3)
+
+#Creacion de los recolectores de la empresa
+Recolector1 = Recolector("Luis", 25, "Hombre", 11)
+Recolector2 = Recolector("Ana", 30, "Mujer", 111)
+Recolector3 = Recolector("Jose", 20, "Hombre", 22)
+Recolector4 = Recolector("Sofia", 25, "Mujer", 222)
+Recolector5 = Recolector("Carlos", 30, "Hombre", 33)
+Recolector6 = Recolector("Laura", 20, "Mujer", 333)
+
+#Creacion de los usuarios de la empresa
+Usuario1 = Usuario("Juan", 30, "Hombre", 1, 1)
+Usuario2 = Usuario("Pedro", 40, "Hombre", 2, 2)
+Usuario3 = Usuario("Maria", 35, "Mujer", 3, 3)
+
+#===================================================================================================
+
+#Registro de los camiones en la empresa
+TrashCity.add_camion(Camion1)
+TrashCity.add_camion(Camion2)
+TrashCity.add_camion(Camion3)
+
+#Registro del personal en los camiones
+Camion1.add_conductor(Conductor1)
+Camion1.add_recolector(Recolector1, Recolector2)
+Camion2.add_conductor(Conductor2)
+Camion2.add_recolector(Recolector3, Recolector4)
+Camion3.add_conductor(Conductor3)
+Camion3.add_recolector(Recolector5, Recolector6)
 
 
 
