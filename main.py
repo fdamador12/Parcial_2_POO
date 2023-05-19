@@ -9,6 +9,12 @@ class TrashCity:
         self.rutas.append(ruta)
     def add_camion(self, camion):
         self.camiones.append(camion)
+    def rellenar_rutas(self, lista_rutas):
+        for ruta in lista_rutas:
+            self.add_ruta(ruta)
+    def rellenar_camiones(self, lista_camiones):
+        for camion in lista_camiones:
+            self.add_camion(camion)
 
 #========================================================================================
 #Clase Camion
@@ -65,18 +71,25 @@ class Usuario(Persona):
 #========================================================================================
 #Clase Turno
 class Turno:
-    def __init__(self,nombre, id, ruta, carga, hora_inicio, hora_fin):
+    def __init__(self,nombre, id, ruta, carga, hora_inicio, hora_fin, camion):
         self.nombre = nombre
         self.id = id
         self.ruta = ruta
         self.carga = carga
         self.hora_inicio = hora_inicio
         self.hora_fin = hora_fin
+        self.camion = camion
+    def realizar_turno(self):
+        print(f"\n{self.nombre} esta en proceso, no. {self.id}")
+        print(f"Hora de inicio: {self.hora_inicio}  - Hora de fin: {self.hora_fin}")
+        print(f"{self.ruta.describir_ruta()}")
+        print(f"El cargamento encontrado fue: {self.carga.cargamento}")
+        print(f"Id camion: {self.camion.id}. Responsables: {self.camion.conductor.nombre}, {self.camion.recolectorA.nombre} y {self.camion.recolectorB.nombre}}")
 
 #========================================================================================
 #Clase Carga
 class Carga:
-    def __init__(self, id, cargamento):
+    def __init__(self, id):
         self.id = id
         self.cargamento = []
     def add_residuos(self, residuo):
@@ -173,7 +186,7 @@ Punto7 = Punto_Geografico("G", 70, 80)
 Punto8 = Punto_Geografico("H", 80, 90)
 Punto9 = Punto_Geografico("I", 90, 100)
 Punto10 = Punto_Geografico("J", 100, 110)
-#Se agregan a una lista
+#Son agregados a una lista
 Lista_puntos = [Punto1, Punto2, Punto3, Punto4, Punto5, Punto6, Punto7, Punto8, Punto9, Punto10]
 
 #Creacion de las rutas
@@ -185,6 +198,7 @@ Ruta2.rellenar_ruta(Lista_puntos)
 
 # Descripcion de las rutas
 Ruta1.describir_ruta()
+Ruta2.describir_ruta()
 
 #========================================================================================
 #Creacion de la empresa principal
@@ -215,10 +229,11 @@ Usuario3 = Usuario("Maria", 35, "Mujer", 3, 3)
 
 #===================================================================================================
 
-#Registro de los camiones en la empresa
-TrashCity.add_camion(Camion1)
-TrashCity.add_camion(Camion2)
-TrashCity.add_camion(Camion3)
+#Registro de los camiones y rutas en la empresa
+Lista_camiones = [Camion1, Camion2, Camion3]
+Lista_rutas = [Ruta1, Ruta2]
+TrashCity.rellenar_camiones(Lista_camiones)
+TrashCity.rellenar_rutas(Lista_rutas)
 
 #Registro del personal en los camiones
 Camion1.add_conductor(Conductor1)
@@ -228,7 +243,15 @@ Camion2.add_recolector(Recolector3, Recolector4)
 Camion3.add_conductor(Conductor3)
 Camion3.add_recolector(Recolector5, Recolector6)
 
+#creacion de las cargas y rellenarlas con 5 residuos aleatorios
+Carga1 = Carga(999)
+Carga2 = Carga(222)
+Carga1.rellenar_carga(5)
+Carga2.rellenar_carga(5)
 
+#Creacion de los turnos
+Turno1 = Turno("Turno Diurno", 444, Ruta1, Carga1, "6:00", "18:00")
+Turno2 = Turno("Turno Nocturno", 777, Ruta2, Carga2, "18:00", "4:00")
 
 
 
