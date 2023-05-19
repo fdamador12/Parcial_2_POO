@@ -81,6 +81,16 @@ class Carga:
         self.cargamento = []
     def add_residuos(self, residuo):
         self.cargamento.append(residuo)
+    #Rellenar una carga aleatoriamente
+    def rellenar_carga(self, n):
+        tipos_residuos = ["vidrio", "plastico", "papel", "metal", "organico", "otro"]
+        for i in range(n):
+            cantidad = random.randint(1, 20)
+            tipo = random.choice(tipos_residuos)
+            # Creo un objeto del tipo residuo con atributos aleatorios
+            residuo = Residuo(cantidad, tipo)
+            # Agrego el residuo a la carga
+            self.add_residuos(residuo)
 
 #========================================================================================
 #Clase Residuo
@@ -143,7 +153,6 @@ class Cuenta:
 import random
 
 #############
-#Relleno una carga aleatoriamente
 
 
 #================================================================================================
