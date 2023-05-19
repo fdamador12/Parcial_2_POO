@@ -115,10 +115,19 @@ class Ruta:
         self.recorrido = []
     def add_punto_geografico(self, punto):
         self.recorrido.append(punto)
+    def rellenar_ruta(self, lista_puntos):
+        # Mezclar los puntos aleatoriamente
+        random.shuffle(lista_puntos)
+        # Llenar la ruta con 5 puntos aleatorios
+        puntos_aleatorios = random.sample(lista_puntos, 5)
+        # Recorrer la lista de puntos aleatorios
+        for punto in puntos_aleatorios:
+            self.add_punto_geografico(punto)
     def describir_ruta(self):
         print("La ruta es: ")
         for punto in self.recorrido:
             punto.describir_punto()
+
 
 #========================================================================================
 #Clase Centro de Acopio
@@ -152,9 +161,6 @@ class Cuenta:
 #Importar libreria random
 import random
 
-#############
-
-
 #================================================================================================
 #Creacion de los Puntos Geograficos
 Punto1 = Punto_Geografico("A", 10, 20)
@@ -167,21 +173,18 @@ Punto7 = Punto_Geografico("G", 70, 80)
 Punto8 = Punto_Geografico("H", 80, 90)
 Punto9 = Punto_Geografico("I", 90, 100)
 Punto10 = Punto_Geografico("J", 100, 110)
+#Se agregan a una lista
+Lista_puntos = [Punto1, Punto2, Punto3, Punto4, Punto5, Punto6, Punto7, Punto8, Punto9, Punto10]
 
-#Despues lo convierto en una funcion para que se vea mejor :3
-# Lista de los puntos
-puntos = [Punto1, Punto2, Punto3, Punto4, Punto5, Punto6, Punto7, Punto8, Punto9, Punto10]
-# Mezclar los puntos aleatoriamente
-random.shuffle(puntos)
-# Crear una instancia de la clase Ruta
+#Creacion de las rutas
 Ruta1 = Ruta()
-# Llenar la ruta con 5 puntos aleatorios
-puntos_aleatorios = random.sample(puntos, 5)
-for punto in puntos_aleatorios:
-    Ruta1.add_punto_geografico(punto)
-# Describir la ruta
-Ruta1.describir_ruta()
+Ruta2 = Ruta()
+#Rellenar las rutas con puntos geograficos aleatorios
+Ruta1.rellenar_ruta(Lista_puntos)
+Ruta2.rellenar_ruta(Lista_puntos)
 
+# Descripcion de las rutas
+Ruta1.describir_ruta()
 
 #========================================================================================
 #Creacion de la empresa principal
