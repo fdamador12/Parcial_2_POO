@@ -33,6 +33,7 @@ class Centro_Acopio:
     def __init__(self, nombre):
         self.nombre = nombre
         self.cuentas = []
+        self.vidrio_total = 0
     def producir_cuenta(self, turno):
         # Crear una cuenta vacia
         cuenta = Cuenta(turno.id, 0, 0, 0, 0, 0, 0)
@@ -52,6 +53,8 @@ class Centro_Acopio:
                 cuenta.cantidad_otro += residuo.cantidad
         # Agregar la cuenta a la lista de cuentas del centro de acopio
         self.cuentas.append(cuenta)
+        # Modificar el vidrio total de todas las rutas
+        self.modificar_vidrio_total(cuenta.cantidad_vidrio)
     def describir_cuenta(self, turno):
         for cuenta in self.cuentas:
             if cuenta.id == turno.id:
@@ -63,6 +66,10 @@ class Centro_Acopio:
                 print(f"  Cantidad de organico: {cuenta.cantidad_organico}")
                 print(f"  Cantidad de otro: {cuenta.cantidad_otro}")
                 print(f"  Total: {cuenta.calcular_total()}")
+    def modificar_vidrio_total(self, monto):
+        self.vidrio_total += monto
+    def notificar_vidrio_total(self):
+        print(f"\nEl centro de acopio {self.nombre} informa que recolectó {self.vidrio_total} kg de vidrio el dia de hoy")
 
 #========================================================================================
 #Clase Cuenta
@@ -195,7 +202,6 @@ class Ruta:
 
 #========================================================================================
 #Codigo Principal
-#========================================================================================
 
 #----------------------------------------------------------------------------------------
 #Importar libreria random
@@ -227,12 +233,15 @@ Lista_puntos = [Punto1, Punto2, Punto3, Punto4, Punto5, Punto6, Punto7, Punto8, 
 #Creacion de las rutas
 Ruta1 = Ruta()
 Ruta2 = Ruta()
+Ruta3 = Ruta()
 #Rellenar las rutas con puntos geograficos aleatorios
 Ruta1.rellenar_ruta(Lista_puntos)
 Ruta2.rellenar_ruta(Lista_puntos)
+Ruta3.rellenar_ruta(Lista_puntos)
 # Descripcion de las rutas
 Ruta1.describir_ruta()
 Ruta2.describir_ruta()
+Ruta3.describir_ruta()
 
 #----------------------------------------------------------------------------------------
 #Creacion de los camiones de la empresa
@@ -254,7 +263,7 @@ Recolector6 = Recolector("Laura", 20, "Mujer", 333)
 #----------------------------------------------------------------------------------------
 #Registro de los camiones y rutas en la empresa
 Lista_camiones = [Camion1, Camion2, Camion3]
-Lista_rutas = [Ruta1, Ruta2]
+Lista_rutas = [Ruta1, Ruta2, Ruta3]
 #Rellenar informacion de los camiones y rutas
 TrashCity.rellenar_camiones(Lista_camiones)
 TrashCity.rellenar_rutas(Lista_rutas)
@@ -272,24 +281,32 @@ Camion3.add_recolector(Recolector5, Recolector6)
 #Creacion de las cargas y rellenarlas con n residuos aleatorios (5-10)
 Carga1 = Carga(999)
 Carga2 = Carga(222)
+Carga3 = Carga(333)
 Carga1.rellenar_carga(random.randint(5, 10))
 Carga2.rellenar_carga(random.randint(5, 10))
+Carga3.rellenar_carga(random.randint(5, 10))
 
 #----------------------------------------------------------------------------------------
 #Creacion de los turnos
 Turno1 = Turno("Turno Diurno", 444, Ruta1, Carga1, "6:00", "18:00", Camion1)
 Turno2 = Turno("Turno Nocturno", 777, Ruta2, Carga2, "18:00", "4:00", Camion2)
+Turno3 = Turno("Turno Diurno", 555, Ruta3, Carga3, "6:00", "18:00", Camion3)
 #Realizar los turnos
 Turno1.realizar_turno()
 Turno2.realizar_turno()
+Turno3.realizar_turno()
 
 #----------------------------------------------------------------------------------------
 #Crear las cuentas en el centro de acopio
 Centro_Acopio.producir_cuenta(Turno1)
 Centro_Acopio.producir_cuenta(Turno2)
+Centro_Acopio.producir_cuenta(Turno3)
 #Mostrar las cuentas del centro de acopio
 Centro_Acopio.describir_cuenta(Turno1)
 Centro_Acopio.describir_cuenta(Turno2)
+Centro_Acopio.describir_cuenta(Turno3)
+#Notificar el total de vidrio recolectado en todos los turnos
+Centro_Acopio.notificar_vidrio_total()
 
 
 
