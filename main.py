@@ -151,11 +151,11 @@ class Centro_Acopio:
     def __init__(self, nombre):
         self.nombre = nombre
         self.cuentas = []
-    def producir_cuenta(self, camion):
+    def producir_cuenta(self, turno):
         # Crear una cuenta vacia
-        cuenta = Cuenta(camion.turno.id, 0, 0, 0, 0, 0, 0)
+        cuenta = Cuenta(turno.id, 0, 0, 0, 0, 0, 0)
         # Recorrer la carga del camion
-        for residuo in camion.turno.carga.cargamento:
+        for residuo in turno.carga.cargamento:
             if residuo.tipo == "vidrio":
                 cuenta.cantidad_vidrio += residuo.cantidad
             elif residuo.tipo == "plastico":
@@ -170,8 +170,18 @@ class Centro_Acopio:
                 cuenta.cantidad_otro += residuo.cantidad
         # Agregar la cuenta a la lista de cuentas del centro de acopio
         self.cuentas.append(cuenta)
-    def describir_describir(self):
-        pass
+    def describir_cuenta(self, turno):
+        for cuenta in self.cuentas:
+            if cuenta.id == turno.id:
+                print(f"\nLa cuenta no. {cuenta.id} informa de: ")
+                print(f"  Cantidad de vidrio: {cuenta.cantidad_vidrio}")
+                print(f"  Cantidad de plastico: {cuenta.cantidad_plastico}")
+                print(f"  Cantidad de papel: {cuenta.cantidad_papel}")
+                print(f"  Cantidad de metal: {cuenta.cantidad_metal}")
+                print(f"  Cantidad de organico: {cuenta.cantidad_organico}")
+                print(f"  Cantidad de otro: {cuenta.cantidad_otro}")
+                print(f"  Total: {cuenta.calcular_total()}")
+
 
 #========================================================================================
 #Clase Cuenta
@@ -273,8 +283,20 @@ Carga2.rellenar_carga(5)
 Turno1 = Turno("Turno Diurno", 444, Ruta1, Carga1, "6:00", "18:00", Camion1)
 Turno2 = Turno("Turno Nocturno", 777, Ruta2, Carga2, "18:00", "4:00", Camion2)
 
+#Realizar los turnos
 Turno1.realizar_turno()
+Turno2.realizar_turno()
 
+#Creacion del centro de acopio
+Centro_Acopio = Centro_Acopio("Centro de Acopio")
+
+#Crear las cuentas en el centro de acopio
+Centro_Acopio.producir_cuenta(Turno1)
+Centro_Acopio.producir_cuenta(Turno2)
+
+#Mostrar las cuentas
+Centro_Acopio.describir_cuenta(Turno1)
+Centro_Acopio.describir_cuenta(Turno2)
 
 
 
