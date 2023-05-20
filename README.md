@@ -51,10 +51,15 @@ Bienvenido al sistema TrashCity, un sistema de gestión de recolección de resid
  
 9. Este manual de usuario proporciona una descripción general de las principales funcionalidades del sistema TrashCity. Siga las instrucciones y utilice los comandos proporcionados    en el código para interactuar con el sistema de manera efectiva.
 
-#Explicacion UML
+# Explicacion UML
 
 >A continuacion se señalará brevemente los factores mas importantes del diagrama UML del respectivo programa diseñado.
 >1. La clase principal TrashCity contiene las rutas y los camiones de la empresa y puede rellenar estos
 >2. La clase centro de acopio se encarga de organizar los residuos recogidos en cada turno respectivamente asi como calcular totales y la cantidad de vidrio recogida al finalizar el dia
 >3. La clase camion tiene un id para identificarse asi como un conductor y 2 recolectores y el turno que realiza
 >4. De la clase persona heredan recolector y conductor los cuales van dentro del camion al momento de realizar algun turno
+>5. La clase turno tiene una ruta a seguir, una carga recolectada, un camion que la realiza y una fecha de inicio y finalizacion
+>6. La clase carga tiene un cargamento con todos los residuos recolectados en un turno en particular
+>7. La clase residuo muestra la cantidad y el tipo que se recolecta
+>8. La clase ruta contiene un recorrido donde almacena puntos geograficos
+>9. La clase puntos geograficos consta de un nombre para identificarse y de coordenadas de latitud y longitud
