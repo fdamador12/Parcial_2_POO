@@ -1,6 +1,12 @@
 #========================================================================================
 #Clase Trashcity
 class TrashCity:
+    _instance = None
+    def __new__(cls, *args, **kwargs):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
     def __init__(self, nombre):
         self.nombre = nombre
         self.rutas = []
@@ -59,16 +65,6 @@ class Recolector(Persona):
         print(f"El recolector {self.nombre} está recolectando basura en el camion no. {camion.id}")
 
 #========================================================================================
-#Clase Usuario
-class Usuario(Persona):
-    def __init__(self, nombre, edad, sexo, pos_lat, pos_long):
-        super().__init__(nombre, edad, sexo)
-        self.posicion_latitud = pos_lat
-        self.posicion_longitud = pos_long
-    def arrojar_desechos(self, ruta):
-        print(f"El usuario {self.nombre} está arrojando desechos en ...")
-
-#========================================================================================
 #Clase Turno
 class Turno:
     def __init__(self,nombre, id, ruta, carga, hora_inicio, hora_fin, camion):
@@ -87,7 +83,6 @@ class Turno:
         for residuo in self.carga.cargamento:
             print(f"  Tipo: {residuo.tipo}, Cantidad: {residuo.cantidad}")
         print(f"Id camion: {self.camion.id}. Responsables: {self.camion.conductor.nombre}, {self.camion.recolectorA.nombre} y {self.camion.recolectorB.nombre}")
-
 
 #========================================================================================
 #Clase Carga
@@ -144,10 +139,14 @@ class Ruta:
         for punto in self.recorrido:
             punto.describir_punto()
 
-
 #========================================================================================
 #Clase Centro de Acopio
 class Centro_Acopio:
+    _instance = None
+    def __new__(cls, nombre):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+        return cls._instance
     def __init__(self, nombre):
         self.nombre = nombre
         self.cuentas = []
@@ -182,7 +181,6 @@ class Centro_Acopio:
                 print(f"  Cantidad de otro: {cuenta.cantidad_otro}")
                 print(f"  Total: {cuenta.calcular_total()}")
 
-
 #========================================================================================
 #Clase Cuenta
 class Cuenta:
@@ -197,6 +195,8 @@ class Cuenta:
     def calcular_total(self):
         return self.cantidad_vidrio + self.cantidad_plastico + self.cantidad_papel + self.cantidad_metal + self.cantidad_organico + self.cantidad_otro
 
+#========================================================================================
+#========================================================================================
 #========================================================================================
 #Codigo Principal
 
