@@ -63,3 +63,6 @@ Bienvenido al sistema TrashCity, un sistema de gestión de recolección de resid
 >7. La clase residuo muestra la cantidad y el tipo que se recolecta
 >8. La clase ruta contiene un recorrido donde almacena puntos geograficos
 >9. La clase puntos geograficos consta de un nombre para identificarse y de coordenadas de latitud y longitud
+
+[Parcial_2_POO.pdf](https://github.com/fdamador12/Parcial_2_POO/files/11521489/Parcial_2_POO.pdf)
+
