@@ -89,8 +89,6 @@ class Camion:
     def add_recolector(self, recolectorA, recolectorB):
         self.recolectorA = recolectorA
         self.recolectorB = recolectorB
-    def realizar_turno(self):
-        pass
 
 #========================================================================================
 #Clase Persona
