@@ -204,7 +204,14 @@ class Cuenta:
 #Importar libreria random
 import random
 
-#================================================================================================
+#----------------------------------------------------------------------------------------
+#Creacion de la empresa principal
+TrashCity = TrashCity("TrashCity")
+print(f"La empresa {TrashCity.nombre} ha sido creada")
+#Creacion del centro de acopio
+Centro_Acopio = Centro_Acopio("Centro de Acopio")
+
+#----------------------------------------------------------------------------------------
 #Creacion de los Puntos Geograficos
 Punto1 = Punto_Geografico("A", 10, 20)
 Punto2 = Punto_Geografico("B", 20, 30)
@@ -219,31 +226,26 @@ Punto10 = Punto_Geografico("J", 100, 110)
 #Son agregados a una lista
 Lista_puntos = [Punto1, Punto2, Punto3, Punto4, Punto5, Punto6, Punto7, Punto8, Punto9, Punto10]
 
+#----------------------------------------------------------------------------------------
 #Creacion de las rutas
 Ruta1 = Ruta()
 Ruta2 = Ruta()
 #Rellenar las rutas con puntos geograficos aleatorios
 Ruta1.rellenar_ruta(Lista_puntos)
 Ruta2.rellenar_ruta(Lista_puntos)
-
 # Descripcion de las rutas
 Ruta1.describir_ruta()
 Ruta2.describir_ruta()
 
-#========================================================================================
-#Creacion de la empresa principal
-TrashCity = TrashCity("TrashCity")
-
+#----------------------------------------------------------------------------------------
 #Creacion de los camiones de la empresa
 Camion1 = Camion(1, "Diurno")
 Camion2 = Camion(2, "Nocturno")
 Camion3 = Camion(3, "Diurno")
-
 #Creacion de los conductores de la empresa
 Conductor1 = Conductor("Juan", 30, "Hombre", 1)
 Conductor2 = Conductor("Pedro", 40, "Hombre", 2)
 Conductor3 = Conductor("Maria", 35, "Mujer", 3)
-
 #Creacion de los recolectores de la empresa
 Recolector1 = Recolector("Luis", 25, "Hombre", 11)
 Recolector2 = Recolector("Ana", 30, "Mujer", 111)
@@ -252,14 +254,15 @@ Recolector4 = Recolector("Sofia", 25, "Mujer", 222)
 Recolector5 = Recolector("Carlos", 30, "Hombre", 33)
 Recolector6 = Recolector("Laura", 20, "Mujer", 333)
 
-#===================================================================================================
-
+#----------------------------------------------------------------------------------------
 #Registro de los camiones y rutas en la empresa
 Lista_camiones = [Camion1, Camion2, Camion3]
 Lista_rutas = [Ruta1, Ruta2]
+#Rellenar informacion de los camiones y rutas
 TrashCity.rellenar_camiones(Lista_camiones)
 TrashCity.rellenar_rutas(Lista_rutas)
 
+#----------------------------------------------------------------------------------------
 #Registro del personal en los camiones
 Camion1.add_conductor(Conductor1)
 Camion1.add_recolector(Recolector1, Recolector2)
@@ -268,28 +271,26 @@ Camion2.add_recolector(Recolector3, Recolector4)
 Camion3.add_conductor(Conductor3)
 Camion3.add_recolector(Recolector5, Recolector6)
 
-#creacion de las cargas y rellenarlas con 5 residuos aleatorios
+#----------------------------------------------------------------------------------------
+#Creacion de las cargas y rellenarlas con n residuos aleatorios (5-10)
 Carga1 = Carga(999)
 Carga2 = Carga(222)
-Carga1.rellenar_carga(5)
-Carga2.rellenar_carga(5)
+Carga1.rellenar_carga(random.randint(5, 10))
+Carga2.rellenar_carga(random.randint(5, 10))
 
+#----------------------------------------------------------------------------------------
 #Creacion de los turnos
 Turno1 = Turno("Turno Diurno", 444, Ruta1, Carga1, "6:00", "18:00", Camion1)
 Turno2 = Turno("Turno Nocturno", 777, Ruta2, Carga2, "18:00", "4:00", Camion2)
-
 #Realizar los turnos
 Turno1.realizar_turno()
 Turno2.realizar_turno()
 
-#Creacion del centro de acopio
-Centro_Acopio = Centro_Acopio("Centro de Acopio")
-
+#----------------------------------------------------------------------------------------
 #Crear las cuentas en el centro de acopio
 Centro_Acopio.producir_cuenta(Turno1)
 Centro_Acopio.producir_cuenta(Turno2)
-
-#Mostrar las cuentas
+#Mostrar las cuentas del centro de acopio
 Centro_Acopio.describir_cuenta(Turno1)
 Centro_Acopio.describir_cuenta(Turno2)
 
