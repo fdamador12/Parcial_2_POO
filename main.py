@@ -83,8 +83,11 @@ class Turno:
         print(f"\n{self.nombre} esta en proceso, no. {self.id}")
         print(f"Hora de inicio: {self.hora_inicio}  - Hora de fin: {self.hora_fin}")
         print(f"{self.ruta.describir_ruta()}")
-        print(f"El cargamento encontrado fue: {self.carga.cargamento}")
-        print(f"Id camion: {self.camion.id}. Responsables: {self.camion.conductor.nombre}, {self.camion.recolectorA.nombre} y {self.camion.recolectorB.nombre}}")
+        print(f"El cargamento encontrado fue:")
+        for residuo in self.carga.cargamento:
+            print(f"  Tipo: {residuo.tipo}, Cantidad: {residuo.cantidad}")
+        print(f"Id camion: {self.camion.id}. Responsables: {self.camion.conductor.nombre}, {self.camion.recolectorA.nombre} y {self.camion.recolectorB.nombre}")
+
 
 #========================================================================================
 #Clase Carga
@@ -119,7 +122,7 @@ class Punto_Geografico:
         self.latitud = latitud
         self.longitud = longitud
     def describir_punto(self):
-        print(f"El punto {self.nombre} está en la latitud {self.latitud} y longitud {self.longitud}")
+        print(f"  Punto {self.nombre}. Latitud: {self.latitud}, longitud: {self.longitud}")
 
 #========================================================================================
 #Clase Ruta
@@ -147,10 +150,27 @@ class Ruta:
 class Centro_Acopio:
     def __init__(self, nombre):
         self.nombre = nombre
-        self.camiones = []
+        self.cuentas = []
     def producir_cuenta(self, camion):
-        pass
-    def describir_total(self):
+        # Crear una cuenta vacia
+        cuenta = Cuenta(camion.turno.id, 0, 0, 0, 0, 0, 0)
+        # Recorrer la carga del camion
+        for residuo in camion.turno.carga.cargamento:
+            if residuo.tipo == "vidrio":
+                cuenta.cantidad_vidrio += residuo.cantidad
+            elif residuo.tipo == "plastico":
+                cuenta.cantidad_plastico += residuo.cantidad
+            elif residuo.tipo == "papel":
+                cuenta.cantidad_papel += residuo.cantidad
+            elif residuo.tipo == "metal":
+                cuenta.cantidad_metal += residuo.cantidad
+            elif residuo.tipo == "organico":
+                cuenta.cantidad_organico += residuo.cantidad
+            else:
+                cuenta.cantidad_otro += residuo.cantidad
+        # Agregar la cuenta a la lista de cuentas del centro de acopio
+        self.cuentas.append(cuenta)
+    def describir_describir(self):
         pass
 
 #========================================================================================
@@ -197,8 +217,8 @@ Ruta1.rellenar_ruta(Lista_puntos)
 Ruta2.rellenar_ruta(Lista_puntos)
 
 # Descripcion de las rutas
-Ruta1.describir_ruta()
-Ruta2.describir_ruta()
+#Ruta1.describir_ruta()
+#Ruta2.describir_ruta()
 
 #========================================================================================
 #Creacion de la empresa principal
@@ -250,8 +270,10 @@ Carga1.rellenar_carga(5)
 Carga2.rellenar_carga(5)
 
 #Creacion de los turnos
-Turno1 = Turno("Turno Diurno", 444, Ruta1, Carga1, "6:00", "18:00")
-Turno2 = Turno("Turno Nocturno", 777, Ruta2, Carga2, "18:00", "4:00")
+Turno1 = Turno("Turno Diurno", 444, Ruta1, Carga1, "6:00", "18:00", Camion1)
+Turno2 = Turno("Turno Nocturno", 777, Ruta2, Carga2, "18:00", "4:00", Camion2)
+
+Turno1.realizar_turno()
 
 
 
