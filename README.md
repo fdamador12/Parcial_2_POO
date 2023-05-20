@@ -48,7 +48,5 @@ Bienvenido al sistema TrashCity, un sistema de gestión de recolección de resid
 8. Identificación de Personal y Funciones Adicionales
   Cada persona (conductores, recolectores) puede identificarse para mostrar su información personal.
   Además, se pueden realizar funciones adicionales según los requisitos del sistema.
-  ...
-Este manual de usuario proporciona una descripción general de las principales funcionalidades del sistema TrashCity. Siga las instrucciones y utilice los comandos proporcionados  en el código para interactuar con el sistema de manera efectiva.
-
-...
+ 
+9. Este manual de usuario proporciona una descripción general de las principales funcionalidades del sistema TrashCity. Siga las instrucciones y utilice los comandos proporcionados    en el código para interactuar con el sistema de manera efectiva.
