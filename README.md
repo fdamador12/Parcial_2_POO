@@ -4,7 +4,7 @@ Estudiante: Franklin Amador Velasco
 Codigo: 200180542
 
 
-Manual de Usuario - Sistema TrashCity
+# Manual de Usuario - Sistema TrashCity
 
 Bienvenido al sistema TrashCity, un sistema de gestión de recolección de residuos. Este manual proporciona una guía detallada sobre cómo utilizar el sistema y sus principales funcionalidades. Siga las instrucciones a continuación para comenzar a utilizar el sistema TrashCity.
 
