@@ -65,6 +65,5 @@ Bienvenido al sistema TrashCity, un sistema de gestión de recolección de resid
 >9. La clase puntos geograficos consta de un nombre para identificarse y de coordenadas de latitud y longitud
 >-----------------------------------------------------------------------------------------------------------------------------------------------
 Adjunto del UML
-\n
 [Parcial_2_POO.pdf](https://github.com/fdamador12/Parcial_2_POO/files/11521489/Parcial_2_POO.pdf)
 
