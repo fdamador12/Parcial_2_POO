@@ -207,6 +207,7 @@ class Ruta:
 #Importar libreria random y unittest
 import random
 import unittest
+from unittest.mock import MagicMock
 
 #----------------------------------------------------------------------------------------
 #Creacion de la empresa principal
@@ -311,8 +312,6 @@ Centro_Acopio.notificar_vidrio_total()
 
 #================================================================================================
 #Pruebas Unitarias
-import unittest
-from unittest.mock import MagicMock
 
 class TestPersona(unittest.TestCase):
     def test_identificarse(self):
