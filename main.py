@@ -23,6 +23,62 @@ class TrashCity:
             self.add_camion(camion)
 
 #========================================================================================
+#Clase Centro de Acopio
+class Centro_Acopio:
+    _instance = None
+    def __new__(cls, nombre):
+        if not cls._instance:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+    def __init__(self, nombre):
+        self.nombre = nombre
+        self.cuentas = []
+    def producir_cuenta(self, turno):
+        # Crear una cuenta vacia
+        cuenta = Cuenta(turno.id, 0, 0, 0, 0, 0, 0)
+        # Recorrer la carga del camion
+        for residuo in turno.carga.cargamento:
+            if residuo.tipo == "vidrio":
+                cuenta.cantidad_vidrio += residuo.cantidad
+            elif residuo.tipo == "plastico":
+                cuenta.cantidad_plastico += residuo.cantidad
+            elif residuo.tipo == "papel":
+                cuenta.cantidad_papel += residuo.cantidad
+            elif residuo.tipo == "metal":
+                cuenta.cantidad_metal += residuo.cantidad
+            elif residuo.tipo == "organico":
+                cuenta.cantidad_organico += residuo.cantidad
+            else:
+                cuenta.cantidad_otro += residuo.cantidad
+        # Agregar la cuenta a la lista de cuentas del centro de acopio
+        self.cuentas.append(cuenta)
+    def describir_cuenta(self, turno):
+        for cuenta in self.cuentas:
+            if cuenta.id == turno.id:
+                print(f"\nLa cuenta del camion no. {cuenta.id} informa de: ")
+                print(f"  Cantidad de vidrio: {cuenta.cantidad_vidrio}")
+                print(f"  Cantidad de plastico: {cuenta.cantidad_plastico}")
+                print(f"  Cantidad de papel: {cuenta.cantidad_papel}")
+                print(f"  Cantidad de metal: {cuenta.cantidad_metal}")
+                print(f"  Cantidad de organico: {cuenta.cantidad_organico}")
+                print(f"  Cantidad de otro: {cuenta.cantidad_otro}")
+                print(f"  Total: {cuenta.calcular_total()}")
+
+#========================================================================================
+#Clase Cuenta
+class Cuenta:
+    def __init__(self, id_turno, cantV, cantP, cantPL, cantM, cantO, cantOT):
+        self.id = id_turno
+        self.cantidad_vidrio = cantV
+        self.cantidad_plastico = cantP
+        self.cantidad_papel = cantPL
+        self.cantidad_metal = cantM
+        self.cantidad_organico = cantO
+        self.cantidad_otro = cantOT
+    def calcular_total(self):
+        return self.cantidad_vidrio + self.cantidad_plastico + self.cantidad_papel + self.cantidad_metal + self.cantidad_organico + self.cantidad_otro
+
+#========================================================================================
 #Clase Camion
 class Camion:
     def __init__(self, id, turno):
@@ -129,8 +185,8 @@ class Ruta:
     def rellenar_ruta(self, lista_puntos):
         # Mezclar los puntos aleatoriamente
         random.shuffle(lista_puntos)
-        # Llenar la ruta con 5 puntos aleatorios
-        puntos_aleatorios = random.sample(lista_puntos, 5)
+        # Llenar la ruta con n puntos aleatorios (5 - 10)
+        puntos_aleatorios = random.sample(lista_puntos, random.randint(5, 10))
         # Recorrer la lista de puntos aleatorios
         for punto in puntos_aleatorios:
             self.add_punto_geografico(punto)
@@ -140,74 +196,17 @@ class Ruta:
             punto.describir_punto()
 
 #========================================================================================
-#Clase Centro de Acopio
-class Centro_Acopio:
-    _instance = None
-    def __new__(cls, nombre):
-        if not cls._instance:
-            cls._instance = super().__new__(cls)
-        return cls._instance
-    def __init__(self, nombre):
-        self.nombre = nombre
-        self.cuentas = []
-    def producir_cuenta(self, turno):
-        # Crear una cuenta vacia
-        cuenta = Cuenta(turno.id, 0, 0, 0, 0, 0, 0)
-        # Recorrer la carga del camion
-        for residuo in turno.carga.cargamento:
-            if residuo.tipo == "vidrio":
-                cuenta.cantidad_vidrio += residuo.cantidad
-            elif residuo.tipo == "plastico":
-                cuenta.cantidad_plastico += residuo.cantidad
-            elif residuo.tipo == "papel":
-                cuenta.cantidad_papel += residuo.cantidad
-            elif residuo.tipo == "metal":
-                cuenta.cantidad_metal += residuo.cantidad
-            elif residuo.tipo == "organico":
-                cuenta.cantidad_organico += residuo.cantidad
-            else:
-                cuenta.cantidad_otro += residuo.cantidad
-        # Agregar la cuenta a la lista de cuentas del centro de acopio
-        self.cuentas.append(cuenta)
-    def describir_cuenta(self, turno):
-        for cuenta in self.cuentas:
-            if cuenta.id == turno.id:
-                print(f"\nLa cuenta del camion no. {cuenta.id} informa de: ")
-                print(f"  Cantidad de vidrio: {cuenta.cantidad_vidrio}")
-                print(f"  Cantidad de plastico: {cuenta.cantidad_plastico}")
-                print(f"  Cantidad de papel: {cuenta.cantidad_papel}")
-                print(f"  Cantidad de metal: {cuenta.cantidad_metal}")
-                print(f"  Cantidad de organico: {cuenta.cantidad_organico}")
-                print(f"  Cantidad de otro: {cuenta.cantidad_otro}")
-                print(f"  Total: {cuenta.calcular_total()}")
-
-#========================================================================================
-#Clase Cuenta
-class Cuenta:
-    def __init__(self, id_turno, cantV, cantP, cantPL, cantM, cantO, cantOT):
-        self.id = id_turno
-        self.cantidad_vidrio = cantV
-        self.cantidad_plastico = cantP
-        self.cantidad_papel = cantPL
-        self.cantidad_metal = cantM
-        self.cantidad_organico = cantO
-        self.cantidad_otro = cantOT
-    def calcular_total(self):
-        return self.cantidad_vidrio + self.cantidad_plastico + self.cantidad_papel + self.cantidad_metal + self.cantidad_organico + self.cantidad_otro
-
-#========================================================================================
-#========================================================================================
-#========================================================================================
 #Codigo Principal
-
 #========================================================================================
+
+#----------------------------------------------------------------------------------------
 #Importar libreria random
 import random
 
 #----------------------------------------------------------------------------------------
 #Creacion de la empresa principal
 TrashCity = TrashCity("TrashCity")
-print(f"La empresa {TrashCity.nombre} ha sido creada")
+print(f"       ====|La empresa {TrashCity.nombre} ha sido creada|====")
 #Creacion del centro de acopio
 Centro_Acopio = Centro_Acopio("Centro de Acopio")
 
@@ -243,7 +242,7 @@ Camion1 = Camion(1, "Diurno")
 Camion2 = Camion(2, "Nocturno")
 Camion3 = Camion(3, "Diurno")
 #Creacion de los conductores de la empresa
-Conductor1 = Conductor("Juan", 30, "Hombre", 1)
+Conductor1 = Conductor("Marcela", 30, "Mujer", 1)
 Conductor2 = Conductor("Pedro", 40, "Hombre", 2)
 Conductor3 = Conductor("Maria", 35, "Mujer", 3)
 #Creacion de los recolectores de la empresa
