@@ -173,7 +173,7 @@ class Centro_Acopio:
     def describir_cuenta(self, turno):
         for cuenta in self.cuentas:
             if cuenta.id == turno.id:
-                print(f"\nLa cuenta no. {cuenta.id} informa de: ")
+                print(f"\nLa cuenta del camion no. {cuenta.id} informa de: ")
                 print(f"  Cantidad de vidrio: {cuenta.cantidad_vidrio}")
                 print(f"  Cantidad de plastico: {cuenta.cantidad_plastico}")
                 print(f"  Cantidad de papel: {cuenta.cantidad_papel}")
@@ -227,8 +227,8 @@ Ruta1.rellenar_ruta(Lista_puntos)
 Ruta2.rellenar_ruta(Lista_puntos)
 
 # Descripcion de las rutas
-#Ruta1.describir_ruta()
-#Ruta2.describir_ruta()
+Ruta1.describir_ruta()
+Ruta2.describir_ruta()
 
 #========================================================================================
 #Creacion de la empresa principal
@@ -251,11 +251,6 @@ Recolector3 = Recolector("Jose", 20, "Hombre", 22)
 Recolector4 = Recolector("Sofia", 25, "Mujer", 222)
 Recolector5 = Recolector("Carlos", 30, "Hombre", 33)
 Recolector6 = Recolector("Laura", 20, "Mujer", 333)
-
-#Creacion de los usuarios de la empresa
-Usuario1 = Usuario("Juan", 30, "Hombre", 1, 1)
-Usuario2 = Usuario("Pedro", 40, "Hombre", 2, 2)
-Usuario3 = Usuario("Maria", 35, "Mujer", 3, 3)
 
 #===================================================================================================
 
