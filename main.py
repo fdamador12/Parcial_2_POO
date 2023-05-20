@@ -204,8 +204,9 @@ class Ruta:
 #Codigo Principal
 
 #----------------------------------------------------------------------------------------
-#Importar libreria random
+#Importar libreria random y unittest
 import random
+import unittest
 
 #----------------------------------------------------------------------------------------
 #Creacion de la empresa principal
@@ -308,6 +309,78 @@ Centro_Acopio.describir_cuenta(Turno3)
 #Notificar el total de vidrio recolectado en todos los turnos
 Centro_Acopio.notificar_vidrio_total()
 
+#================================================================================================
+#Pruebas Unitarias
+import unittest
+from unittest.mock import MagicMock
+
+class TestPersona(unittest.TestCase):
+    def test_identificarse(self):
+        persona = Persona("Juan", 25, "Hombre")
+        self.assertEqual(persona.identificarse(), "Hola, soy Juan, soy Hombre y tengo 25 años")
+
+class TestConductor(unittest.TestCase):
+    def test_conducir(self):
+        conductor = Conductor("Pedro", 35, "Hombre", 123)
+        camion = Camion(1, "Diurno")
+        camion.add_conductor(conductor)
+        self.assertEqual(conductor.conducir(camion), "El conductor Pedro está conduciendo el camion no. 1")
+
+class TestRecolector(unittest.TestCase):
+    def test_recolectar(self):
+        recolector = Recolector("María", 28, "Mujer", 456)
+        camion = Camion(2, "Nocturno")
+        camion.add_recolector(recolector, None)
+        self.assertEqual(recolector.recolectar(camion), "El recolector María está recolectando basura en el camion no. 2")
+
+class TestCarga(unittest.TestCase):
+    def test_rellenar_carga(self):
+        carga = Carga(999)
+        residuo1 = Residuo(5, "papel")
+        residuo2 = Residuo(10, "vidrio")
+        carga.add_residuos(residuo1)
+        carga.add_residuos(residuo2)
+        carga.rellenar_carga(3)
+        self.assertEqual(len(carga.residuos), 5)  # La carga debería tener 5 residuos en total
+
+class TestTrashCity(unittest.TestCase):
+    def setUp(self):
+        self.trash_city = TrashCity("TrashCity")
+
+    def test_singleton_instance(self):
+        trash_city2 = TrashCity("AnotherTrashCity")
+        self.assertEqual(self.trash_city, trash_city2)
+
+    def test_add_ruta(self):
+        ruta = MagicMock()
+        self.trash_city.add_ruta(ruta)
+        self.assertIn(ruta, self.trash_city.rutas)
+
+class TestCuenta(unittest.TestCase):
+    def setUp(self):
+        self.cuenta = Cuenta(1, 10, 20, 30, 40, 50, 60)
+
+    def test_calcular_total(self):
+        total = self.cuenta.calcular_total()
+        self.assertEqual(total, 210)
+
+class TestTurno(unittest.TestCase):
+    def setUp(self):
+        self.turno = Turno("Turno 1", 1, None, None, "9:00", "17:00", None)
+
+    def test_realizar_turno(self):
+        pass
+
+class TestResiduo(unittest.TestCase):
+    def setUp(self):
+        self.residuo = Residuo(5, "vidrio")
+
+    def test_constructor(self):
+        self.assertEqual(self.residuo.cantidad, 5)
+        self.assertEqual(self.residuo.tipo, "vidrio")
+
+if __name__ == "__main__":
+    unittest.main()
 
 
 
